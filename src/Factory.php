@@ -39,6 +39,13 @@ final class Factory
     private array $payload = [];
 
     /**
+     * The headers to send.
+     *
+     * @var array<string, string>
+     */
+    private array $headers = [];
+
+    /**
      * The computed result, if any.
      */
     private ?Result $result = null;
@@ -67,6 +74,18 @@ final class Factory
         assert($seconds > 0, 'The duration must be greater than 0 seconds.');
 
         $this->duration = $seconds;
+
+        return $this;
+    }
+
+    /**
+     * Specifies the headers to send with the request.
+     *
+     * @param  array<string, string>  $headers
+     */
+    public function headers(array $headers): self
+    {
+        $this->headers = $headers;
 
         return $this;
     }
@@ -215,6 +234,7 @@ final class Factory
                 'duration' => sprintf('%ds', $this->duration),
                 'method' => $this->method,
                 'payload' => $this->payload,
+                'headers' => $this->headers,
                 'throw' => true,
             ],
             $this->verbose,

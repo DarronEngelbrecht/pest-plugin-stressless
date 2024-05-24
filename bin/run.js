@@ -9,40 +9,44 @@ export default () => {
     let payload = options.payload ? options.payload : {};
     let method = options.method ? options.method : 'get';
 
+    let headers = options.headers ? options.headers : {}
+
+    headers['user-agent'] = userAgent;
+
     switch (method) {
         case 'delete':
             http.del(url, null, {
-                headers: { 'user-agent': userAgent },
+                headers,
             });
             break;
         case 'get':
             http.get(url, {
-                headers: { 'user-agent': userAgent },
+                headers,
             });
             break;
         case 'head':
             http.head(url, {
-                headers: { 'user-agent': userAgent },
+                headers,
             });
             break;
         case 'options':
             http.options(url, Object.keys(payload).length ? JSON.stringify(payload) : null, {
-                headers: { 'user-agent': userAgent },
+                headers,
             });
             break;
         case 'patch':
             http.patch(url, Object.keys(payload).length ? JSON.stringify(payload) : null, {
-                headers: { 'user-agent': userAgent },
+                headers,
             });
             break;
         case 'put':
             http.put(url, Object.keys(payload).length ? JSON.stringify(payload) : null, {
-                headers: { 'user-agent': userAgent },
+                headers,
             });
             break;
         case 'post':
             http.post(url, JSON.stringify(payload), {
-                headers: { 'user-agent': userAgent },
+                headers,
             });
             break;
     }
