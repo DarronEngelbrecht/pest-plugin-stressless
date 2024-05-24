@@ -72,3 +72,16 @@ it('correctly sets the post method', function (): void {
     expect($this->stress->method())->toBe('post')
         ->and($this->stress->payload())->toBe(['foo' => 'bar']);
 });
+
+it('correctly sets the headers', function (): void {
+    $this->stress->headers(['foo' => 'bar']);
+
+    $class = new \ReflectionClass($this->stress);
+    $protected = $class->getProperty('headers');
+    $protected->setAccessible(true);
+
+    $instance = $this->stress;
+    $headers = $protected->getValue($instance);
+
+    expect($headers)->toBe(['foo' => 'bar']);
+});
